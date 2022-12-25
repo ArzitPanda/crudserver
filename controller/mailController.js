@@ -12,25 +12,34 @@ const sendMailTo = async (req, res) => {
 
    var transport =
     nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    secure: false, // true for 465, false for other ports
+  
+    service: "Hotmail",
+    // true for 465, false for other ports
     auth: {
-      user: "e718b45de36fd8",
-      pass: "a9534a78d7eae8"
+      user: "arzit43@hotmail.com",
+      pass: "Panda@2001"
     }
   });
     console.log("Mail tunnel created");
     console.log("Mail sending start");
+
+
+    
+
     
      try
      {
        await  transport.sendMail({
-            from: "arzit@mail.ee",
+            from: "arzit43@hotmail.com",
             to: "arijit43.143@gmail.com",
             subject: "Hello ✔",
             text: "Hello world?",
-            html: "<b>Hello world?</b>",
+            html: `<table><tr><td>name</td> </tr><tr><td>phone</td> </tr></table>
+            ${req.body.map((item) => {
+                return `<tr><td>${item.name}</td></tr><tr><td>${item.phone}</td></tr>`
+            })
+            }
+            `,
             });
             res.status(200).json({message: "Mail sent successfully"});
      } 
